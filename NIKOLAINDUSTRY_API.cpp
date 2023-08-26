@@ -4,32 +4,36 @@ NIKOLAINDUSTRY_API::NIKOLAINDUSTRY_API() {
     // Constructor if needed
 }
 
-String NIKOLAINDUSTRY_API::writeDataToDatabase() {
-    http.begin("https://nikolaindustry.wixsite.com/nikolaindustry/_functions/writedata?databasekey=fXr6xXPGlGJXivh&userid=mayurtechnologys16@gmail.com&itemid=randomstring");
+String NIKOLAINDUSTRY_API::writeDataToDatabase(const char* databaseKey, const char* userId, const char* itemId) {
+    String apiEndpoint = "https://nikolaindustry.wixsite.com/nikolaindustry/_functions/writedata?databasekey=" + String(databaseKey) + "&userid=" + String(userId) + "&itemid=" + String(itemId);
+    http.begin(apiEndpoint);
     int httpPOSTCode = http.POST("");
     String payload = http.getString();
     http.end();
     return payload;
 }
 
-String NIKOLAINDUSTRY_API::readDataFromDatabase() {
-    http.begin("https://nikolaindustry.wixsite.com/nikolaindustry/_functions/readitemdata?databasekey=fXr6xXPGlGJXivh&itemid=randomstring");
+String NIKOLAINDUSTRY_API::readDataFromDatabase(const char* databaseKey, const char* itemId) {
+    String apiEndpoint = "https://nikolaindustry.wixsite.com/nikolaindustry/_functions/readitemdata?databasekey=" + String(databaseKey) + "&itemid=" + String(itemId);
+    http.begin(apiEndpoint);
     int httpGETCode = http.GET();
     String payload = http.getString();
     http.end();
     return payload;
-} 
+}
 
-String NIKOLAINDUSTRY_API::updateDataInDatabase() {
-    http.begin("https://nikolaindustry.wixsite.com/nikolaindustry/_functions/updatedata?databasekey=fXr6xXPGlGJXivh&userid=mayurtechnologys16@gmail.com&itemid=randomestring");
+String NIKOLAINDUSTRY_API::updateDataInDatabase(const char* databaseKey, const char* userId, const char* itemId) {
+    String apiEndpoint = "https://nikolaindustry.wixsite.com/nikolaindustry/_functions/updatedata?databasekey=" + String(databaseKey) + "&userid=" + String(userId) + "&itemid=" + String(itemId);
+    http.begin(apiEndpoint);
     int httpPOSTCode = http.POST("");
     String payload = http.getString();
     http.end();
     return payload;
 }
 
-String NIKOLAINDUSTRY_API::readAllDatabaseData() {
-    http.begin("https://nikolaindustry.wixsite.com/nikolaindustry/_functions/readalldatabase?databasekey=fXr6xXPGlGJXivh");
+String NIKOLAINDUSTRY_API::readAllDatabaseData(const char* databaseKey) {
+    String apiEndpoint = "https://nikolaindustry.wixsite.com/nikolaindustry/_functions/readalldatabase?databasekey=" + String(databaseKey);
+    http.begin(apiEndpoint);
     int httpGETCode = http.GET();
     String payload = http.getString();
     http.end();
