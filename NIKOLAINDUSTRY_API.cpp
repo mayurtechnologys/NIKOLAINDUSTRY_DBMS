@@ -18,7 +18,7 @@ String NIKOLAINDUSTRY_API::readDataFromDatabase() {
     String payload = http.getString();
     http.end();
     return payload;
-}
+} 
 
 String NIKOLAINDUSTRY_API::updateDataInDatabase() {
     http.begin("https://nikolaindustry.wixsite.com/nikolaindustry/_functions/updatedata?databasekey=fXr6xXPGlGJXivh&userid=mayurtechnologys16@gmail.com&itemid=randomestring");
