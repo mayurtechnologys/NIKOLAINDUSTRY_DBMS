@@ -1,41 +1,51 @@
-#include "NIKOLAINDUSTRY_API.h"
+#include "NIKOLAINDUSTRY_DBMS.h"
 
-NIKOLAINDUSTRY_API::NIKOLAINDUSTRY_API() {
-    // Constructor if needed
+NIKOLAINDUSTRY_DBMS::NIKOLAINDUSTRY_DBMS(String userid) {
+    _userid = userid;
 }
 
-String NIKOLAINDUSTRY_API::writeDataToDatabase(const char* databaseKey, const char* userId, const char* itemId) {
-    String apiEndpoint = "https://nikolaindustry.wixsite.com/nikolaindustry/_functions/writedata?databasekey=" + String(databaseKey) + "&userid=" + String(userId) + "&itemid=" + String(itemId);
-    http.begin(apiEndpoint);
-    int httpPOSTCode = http.POST("");
+String NIKOLAINDUSTRY_DBMS::WriteData(String databasekey, String itemid, String data) {
+    String startapi = "https://nikolaindustry.wixsite.com/nikolaindustry/_functions/writedata?userid=" + _userid + "&databasekey=" + databasekey + "&itemid=" + itemid + "&data=" + data;
+    HTTPClient http;
+    http.begin(startapi);
+    int httpPOSTCode = http.POST(startapi);
     String payload = http.getString();
     http.end();
     return payload;
 }
 
-String NIKOLAINDUSTRY_API::readDataFromDatabase(const char* databaseKey, const char* itemId) {
-    String apiEndpoint = "https://nikolaindustry.wixsite.com/nikolaindustry/_functions/readitemdata?databasekey=" + String(databaseKey) + "&itemid=" + String(itemId);
-    http.begin(apiEndpoint);
-    int httpGETCode = http.GET();
+String NIKOLAINDUSTRY_DBMS::UpdateData(String databasekey, String itemid, String data) {
+    String startapi = "https://nikolaindustry.wixsite.com/nikolaindustry/_functions/updatedata?userid=" + _userid + "&databasekey=" + databasekey + "&itemid=" + itemid + "&data=" + data;
+    HTTPClient http;
+    http.begin(startapi);
+    int httpPOSTCode = http.POST(startapi);
     String payload = http.getString();
     http.end();
     return payload;
 }
 
-String NIKOLAINDUSTRY_API::updateDataInDatabase(const char* databaseKey, const char* userId, const char* itemId) {
-    String apiEndpoint = "https://nikolaindustry.wixsite.com/nikolaindustry/_functions/updatedata?databasekey=" + String(databaseKey) + "&userid=" + String(userId) + "&itemid=" + String(itemId);
-    http.begin(apiEndpoint);
-    int httpPOSTCode = http.POST("");
-    String payload = http.getString();
+String NIKOLAINDUSTRY_DBMS::ReadData(String databasekey, String itemid) {
+    String readapi = "https://nikolaindustry.wixsite.com/nikolaindustry/_functions/readitemdata?databasekey=" + databasekey + "&itemid=" + itemid;
+    HTTPClient http;
+    http.begin(readapi);
+    int httpCode = http.GET();
+    String response;
+    if (httpCode > 0) {
+        response = http.getString();
+    }
     http.end();
-    return payload;
+    return response;
 }
 
-String NIKOLAINDUSTRY_API::readAllDatabaseData(const char* databaseKey) {
-    String apiEndpoint = "https://nikolaindustry.wixsite.com/nikolaindustry/_functions/readalldatabase?databasekey=" + String(databaseKey);
-    http.begin(apiEndpoint);
-    int httpGETCode = http.GET();
-    String payload = http.getString();
+String NIKOLAINDUSTRY_DBMS::ReadAllitems(String databasekey) {
+    String readapi = "https://nikolaindustry.wixsite.com/nikolaindustry/_functions/readitemdata?databasekey=" + databasekey;
+    HTTPClient http;
+    http.begin(readapi);
+    int httpCode = http.GET();
+    String response;
+    if (httpCode > 0) {
+        response = http.getString();
+    }
     http.end();
-    return payload;
+    return response;
 }
