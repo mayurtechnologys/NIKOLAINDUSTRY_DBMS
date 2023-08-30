@@ -1,16 +1,16 @@
 #include <WiFi.h>
 #include "NIKOLAINDUSTRY_DBMS.h"
 
-
 const char* ssid = "NIKOLA";        // Replace with your network SSID
 const char* password = "12345678";  // Replace with your network password
 
 String userid = "mayurtechnologys16@gmail.com";
-NIKOLAINDUSTRY_DBMS dbms(userid);
+NIKOLAINDUSTRY_DBMS dbms;
 
 void setup() {
   Serial.begin(115200);
   WiFi.begin(ssid, password);
+  dbms.init(userid);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connecting to WiFi...");
@@ -20,7 +20,7 @@ void setup() {
 
 void loop() {
   // Check if connected to Wi-Fi before sending data
-  
+
   if (WiFi.status() == WL_CONNECTED) {
     String data = "&Name=Mayur&RollNo=14&PhoneNo=1111111111";
     // Example: Writing data
