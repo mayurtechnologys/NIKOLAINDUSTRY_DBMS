@@ -4,15 +4,18 @@
 #include <Arduino.h>
 #include <HTTPClient.h>
 
-class NIKOLAINDUSTRY_DBMS {
+class NIKOLAINDUSTRY_DBMS
+{
 public:
-    NIKOLAINDUSTRY_DBMS(String userid);
-    String WriteData(String databasekey,String itemid, String data);
-    String UpdateData(String databasekey,String itemid, String data);
-    String ReadData(String databasekey,String itemid);
+    NIKOLAINDUSTRY_DBMS();
+    void init(String userid);
+    String WriteData(String databasekey, String itemid, String data);
+    String UpdateData(String databasekey, String itemid, String data);
+    String ReadData(String databasekey, String itemid);
     String ReadAllitems(String databasekey);
 
 private:
+    bool initialized;
     String _userid;
 };
 
