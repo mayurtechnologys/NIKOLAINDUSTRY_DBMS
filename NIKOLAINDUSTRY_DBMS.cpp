@@ -1,7 +1,14 @@
 #include "NIKOLAINDUSTRY_DBMS.h"
 
-NIKOLAINDUSTRY_DBMS::NIKOLAINDUSTRY_DBMS(String userid) {
-    _userid = userid;
+NIKOLAINDUSTRY_DBMS::NIKOLAINDUSTRY_DBMS() {
+    initialized = false;
+   // _userid = userid;
+}
+
+void NIKOLAINDUSTRY_DBMS::init(String userid) {
+  _userid = userid;
+  
+  initialized = true;
 }
 
 String NIKOLAINDUSTRY_DBMS::WriteData(String databasekey, String itemid, String data) {
